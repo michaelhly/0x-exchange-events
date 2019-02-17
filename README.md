@@ -37,7 +37,7 @@ const FillEvents = await client.getFilledOrdersAsync(50, {
 Example output:
 
 ```
-
+{
   "data": {
     "filledOrders": [
       {
