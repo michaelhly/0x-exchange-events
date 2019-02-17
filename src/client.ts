@@ -34,7 +34,7 @@ export class HttpSubgraphClient implements Client {
 
   /**
    * Retrieve filled orders on exchange v2 from the 0x subgraph
-   * @param numEntries number of query entries
+   * @param numEntries number of query entries.
    * @param requestOpts Options specifying order information to retrieve, page information, and network id.
    */
   public async getFilledOrdersV2Async(
@@ -66,7 +66,7 @@ export class HttpSubgraphClient implements Client {
 
   /**
    * Retrieve filled orders on exchange v1 from the 0x subgraph
-   * @param numEntries number of query entries
+   * @param numEntries number of query entries.
    * @param requestOpts Options specifying order information to retrieve, page information, and network id.
    */
   public async getFilledOrdersV1Async(
@@ -98,7 +98,7 @@ export class HttpSubgraphClient implements Client {
 
   /**
    * Retrieve cancelled orders on exchange v2 from the 0x subgraph
-   * @param numEntries number of query entries
+   * @param numEntries number of query entries.
    * @param requestOpts Options specifying order information to retrieve, page information, and network id.
    */
 
@@ -129,7 +129,7 @@ export class HttpSubgraphClient implements Client {
 
   /**
    * Retrieve cancelled orders on exchange v2 from the 0x subgraph
-   * @param numEntries number of query entries
+   * @param numEntries number of query entries.
    * @param requestOpts Options specifying order information to retrieve, page information, and network id.
    */
 
@@ -153,6 +153,37 @@ export class HttpSubgraphClient implements Client {
             makerTokenAmountV1
             takerTokenAmountV1
             tokensV1
+          }
+        }
+      `
+    });
+    return result;
+  }
+
+  /**
+   * Retrieve user orders from the 0x subgraph
+   * @param numEntries number of query entries.
+   * @param userAddress address of the user to look for
+   */
+  public async getOrdersByUsersAsync(
+    numEntries: number,
+    userAddress?: string
+  ): Promise<any> {
+    const result = await this._client.query({
+      variables: { numEntries, where: { id: userAddress } },
+      query: gql`
+        query users($numEntries: Int!, $where: User_filter) {
+          users(first: $numEntires, where: $userAddress) {
+            id
+            filledOrdersMaker {
+              id
+            }
+            filledOrdersTaker {
+              id
+            }
+            filledOrdersFeeRecipient {
+              id
+            }
           }
         }
       `
