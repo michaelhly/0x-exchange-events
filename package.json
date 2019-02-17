@@ -1,5 +1,5 @@
 {
-  "name": "0x-event-extractor-serverless",
+  "name": "0x-subgraph-extractor",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
