@@ -35,11 +35,11 @@ export class HttpSubgraphClient implements Client {
   }
 
   /**
-   * Retrieve filled orders on exchange v2 from the 0x subgraph
+   * Retrieve filled orders from the 0x subgraph
    * @param numEntries number of query entries.
    * @param requestOpts Options specifying order information to retrieve, page information, and network id.
    */
-  public async getFilledOrdersV2Async(
+  public async getFilledOrdersAsync(
     numEntries: number,
     requestOpts?: FilledOrderRequestOpts
   ): Promise<any> {
@@ -67,44 +67,12 @@ export class HttpSubgraphClient implements Client {
   }
 
   /**
-   * Retrieve filled orders on exchange v1 from the 0x subgraph
-   * @param numEntries number of query entries.
-   * @param requestOpts Options specifying order information to retrieve, page information, and network id.
-   */
-  public async getFilledOrdersV1Async(
-    numEntries: number,
-    requestOpts?: FilledOrderRequestOpts
-  ): Promise<any> {
-    const result = await this._client.query({
-      variables: { numEntries, where: { ...requestOpts } },
-      query: gql`
-        query filledOrders($numEntries: Int!, $where: FilledOrder_filter) {
-          filledOrders(first: $numEntries, where: $requestOpts) {
-            id
-            maker
-            taker
-            feeRecipient
-            makerFeePaid
-            takerFeePaid
-            makerAssetFilledAmount
-            takerAssetFilledAmount
-            makerTokenAddrV1
-            takerTokenAddrV1
-            tokensV1
-          }
-        }
-      `
-    });
-    return result;
-  }
-
-  /**
-   * Retrieve cancelled orders on exchange v2 from the 0x subgraph
+   * Retrieve cancelled orders on exchange from the 0x subgraph
    * @param numEntries number of query entries.
    * @param requestOpts Options specifying order information to retrieve, page information, and network id.
    */
 
-  public async getCancelledOrdersV2Async(
+  public async getCancelledOrdersAsync(
     numEntries: number,
     requestOpts?: CancelledOrderRequestOpts
   ): Promise<any> {
@@ -122,39 +90,6 @@ export class HttpSubgraphClient implements Client {
             makerAssetDataV2
             takerAssetDataV2
             senderV2
-          }
-        }
-      `
-    });
-    return result;
-  }
-
-  /**
-   * Retrieve cancelled orders on exchange v2 from the 0x subgraph
-   * @param numEntries number of query entries.
-   * @param requestOpts Options specifying order information to retrieve, page information, and network id.
-   */
-
-  public async getCancelledOrdersV1Async(
-    numEntries: number,
-    requestOpts?: CancelledOrderRequestOpts
-  ): Promise<any> {
-    const result = await this._client.query({
-      variables: { numEntries, where: { ...requestOpts } },
-      query: gql`
-        query cancelledOrders(
-          $numEntries: Int!
-          $where: CancelledOrder_filter
-        ) {
-          cancelledOrders(first: $numEntries, where: $requestOpts) {
-            id
-            maker
-            feeRecipient
-            makerTokenAddrV1
-            takerTokenAddrV1
-            makerTokenAmountV1
-            takerTokenAmountV1
-            tokensV1
           }
         }
       `
@@ -167,9 +102,9 @@ export class HttpSubgraphClient implements Client {
    * @param numEntries number of query entries.
    * @param userAddress address of the user to look for
    */
-  public async getOrdersByUsersAsync(
+  public async getOrdersByUsersSAsync(
     numEntries: number,
-    userAddress?: string
+    userAddress: string
   ): Promise<any> {
     const result = await this._client.query({
       variables: { numEntries, where: { id: userAddress } },

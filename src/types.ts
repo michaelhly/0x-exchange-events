@@ -1,17 +1,13 @@
 export interface Client {
-  getFilledOrdersV2Async(
+  getFilledOrdersAsync(
     numEntries: number,
     requestOpts?: FilledOrderRequestOpts
   ): Promise<any>;
-  getFilledOrdersV2Async(
+  getFilledOrdersAsync(
     numEntries: number,
-    requestOptsV1?: FilledOrderRequestOpts
+    requestOpts?: FilledOrderRequestOpts
   ): Promise<any>;
-  getCancelledOrdersV1Async(
-    numEntries: number,
-    requestOpts?: CancelledOrderRequestOpts
-  ): Promise<any>;
-  getCancelledOrdersV2Async(
+  getCancelledOrdersAsync(
     numEntries: number,
     requestOpts?: CancelledOrderRequestOpts
   ): Promise<any>;
@@ -29,20 +25,12 @@ export interface FilledOrderRequestOpts {
   makerAssetDataV2?: string;
   takerAssetDataV2?: string;
   senderV2?: string;
-  makerTokenAddrV1?: string;
-  takerTokenAddrV1?: string;
-  tokenV1?: string;
 }
 
 export interface CancelledOrderRequestOpts {
   id?: string;
   maker?: string;
   feeRecipient?: string;
-  makerTokenAddrV1?: string;
-  takerTokenAddrV1?: string;
-  makerTokenAmountV1?: string;
-  takerTokenAmountV1?: string;
-  tokensV1?: string;
   makerAssetDataV2?: string;
   takerAssetDataV2?: string;
   senderV2?: string;
