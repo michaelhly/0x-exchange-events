@@ -1,0 +1,26 @@
+{
+  "name": "0x-event-extractor-serverless",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-boost": "^0.1.28",
+    "cross-fetch": "^3.0.1",
+    "graphql": "^14.1.1"
+  },
+  "scripts": {
+    "lint": "tslint --format stylish src/**/*.ts",
+    "test": "./node_modules/.bin/jest"
+  },
+  "devDependencies": {
+    "@0x/tslint-config": "^3.0.0",
+    "@types/graphql": "^14.0.7",
+    "@types/jest": "^24.0.5",
+    "@types/node": "^11.9.4",
+    "jest": "^24.1.0",
+    "ts-jest": "^23.10.5",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.3.3"
+  }
+}
