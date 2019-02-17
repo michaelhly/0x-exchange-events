@@ -35,14 +35,14 @@ export interface FilledOrderRequestOpts {
 }
 
 export interface CancelledOrderRequestOpts {
-  id: string;
-  maker: string;
-  feeRecipient: string;
-  makerTokenAddrV1: string;
-  takerTokenAddrV1: string;
-  makerTokenAmountV1: string;
-  takerTokenAmountV1: string;
-  tokensV1: string;
+  id?: string;
+  maker?: string;
+  feeRecipient?: string;
+  makerTokenAddrV1?: string;
+  takerTokenAddrV1?: string;
+  makerTokenAmountV1?: string;
+  takerTokenAmountV1?: string;
+  tokensV1?: string;
   makerAssetDataV2?: string;
   takerAssetDataV2?: string;
   senderV2?: string;
