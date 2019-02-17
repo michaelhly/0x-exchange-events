@@ -23,7 +23,9 @@ export class HttpSubgraphClient implements Client {
    * @param   url    The HTTP url of the 0x subgraph you would like to interact with
    * @return  An instance of HttpSubgraphClient
    */
-  constructor(url: string) {
+  constructor(
+    url = "https://api.thegraph.com/subgraphs/name/michaelhly/zero_ex_events"
+  ) {
     this._client = new ApolloClient({
       cache: new InMemoryCache(),
       link: new HttpLink({

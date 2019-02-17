@@ -4,9 +4,7 @@ import { Client } from "./types";
 describe("Tests for HttpSubgraphClient", () => {
   let client: Client = null;
   beforeAll(() => {
-    client = new HttpSubgraphClient(
-      "https://api.thegraph.com/subgraphs/name/michaelhly/zero_ex_events"
-    );
+    client = new HttpSubgraphClient();
   });
 
   it("test getFilledOrdersAsync", async () => {
