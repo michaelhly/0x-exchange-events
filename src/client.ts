@@ -24,7 +24,7 @@ export class HttpSubgraphClient implements Client {
    * @return  An instance of HttpSubgraphClient
    */
   constructor(
-    url = "https://api.thegraph.com/subgraphs/name/michaelhly/zero_ex_events"
+    url: string = "https://api.thegraph.com/subgraphs/name/michaelhly/zero_ex_events"
   ) {
     this._client = new ApolloClient({
       cache: new InMemoryCache(),
