@@ -26,7 +26,7 @@ const client = new HttpSubgraphClient();
 Get 50 fill events on version 2 of the 0x protocol, filtered by makerAssetData and takerAssetData
 
 ```js
-const FillEvents = await client.getFilledOrdersAsync(50, {
+const FillEvents = await client.getFillEventsAsync(50, {
   // Filter arguments
   makerAssetDataV2: "...",
   takerAssetDataV2: "...",
@@ -82,7 +82,7 @@ Example output:
 Get 50 cancel events on version 2 of the 0x protocol, filtered by makerAssetData and takerAssetData
 
 ```js
-const CancelEvents = await client.getCancelledOrdersAsync(50, {
+const CancelEvents = await client.getCancelEventsAsync(50, {
   // Filter arguments
   makerAssetDataV2: "...",
   takerAssetDataV2: "...",
