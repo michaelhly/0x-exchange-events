@@ -1,16 +1,16 @@
 export interface Client {
   getFilledOrdersAsync(
     numEntries: number,
-    requestOpts?: FilledOrderRequestOpts
+    requestOpts?: FilledOrderFilter
   ): Promise<any>;
   getCancelledOrdersAsync(
     numEntries: number,
-    requestOpts?: CancelledOrderRequestOpts
+    requestOpts?: CancelledOrderFilter
   ): Promise<any>;
   getOrdersByUsersAsync(numEntries: number, userAddress: string): Promise<any>;
 }
 
-export interface FilledOrderRequestOpts {
+export interface FilledOrderFilter {
   id?: string;
   maker?: string;
   taker?: string;
@@ -24,7 +24,7 @@ export interface FilledOrderRequestOpts {
   senderV2?: string;
 }
 
-export interface CancelledOrderRequestOpts {
+export interface CancelledOrderFilter {
   id?: string;
   maker?: string;
   feeRecipient?: string;

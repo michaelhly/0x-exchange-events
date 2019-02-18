@@ -7,11 +7,7 @@ import {
 } from "apollo-boost";
 import "cross-fetch/polyfill";
 
-import {
-  CancelledOrderRequestOpts,
-  Client,
-  FilledOrderRequestOpts
-} from "./types";
+import { CancelledOrderFilter, Client, FilledOrderFilter } from "./types";
 
 const TRAILING_SLASHES_REGEX = /\/+$/;
 
@@ -41,7 +37,7 @@ export class HttpSubgraphClient implements Client {
    */
   public async getFilledOrdersAsync(
     numEntries: number,
-    requestOpts?: FilledOrderRequestOpts
+    requestOpts?: FilledOrderFilter
   ): Promise<any> {
     const result = await this._client.query({
       variables: { numEntries, where: { ...requestOpts } },
@@ -74,7 +70,7 @@ export class HttpSubgraphClient implements Client {
 
   public async getCancelledOrdersAsync(
     numEntries: number,
-    requestOpts?: CancelledOrderRequestOpts
+    requestOpts?: CancelledOrderFilter
   ): Promise<any> {
     const result = await this._client.query({
       variables: { numEntries, where: { ...requestOpts } },
