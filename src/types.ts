@@ -1,5 +1,5 @@
+import { BigNumber } from "@0x/utils"; // tslint:disable-line:no-implicit-dependencies
 import { ApolloQueryResult } from "apollo-boost";
-import { BigNumber } from "@0x/utils";
 
 interface FillEvent {
   __typename: string;
