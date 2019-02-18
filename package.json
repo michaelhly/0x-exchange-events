@@ -13,6 +13,7 @@
     "test": "./node_modules/.bin/jest"
   },
   "devDependencies": {
+    "@0x/order-utils": "^6.1.0",
     "@0x/tslint-config": "^3.0.0",
     "@types/graphql": "^14.0.7",
     "@types/jest": "^24.0.5",
