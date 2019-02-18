@@ -7,7 +7,8 @@ import {
 } from "apollo-boost";
 import "cross-fetch/polyfill";
 
-import { CancelledOrderFilter, Client, FilledOrderFilter } from "./types";
+import { MAX_PER_PAGE } from "./constants";
+import { CancelledEventFilter, Client, FillEventFilter } from "./types";
 
 const TRAILING_SLASHES_REGEX = /\/+$/;
 
@@ -35,15 +36,18 @@ export class HttpSubgraphClient implements Client {
    * @param numEntries number of query entries.
    * @param requestOpts Options specifying order information to retrieve, page information, and network id.
    */
-  public async getFilledOrdersAsync(
+  public async getFillEventsAsync(
     numEntries: number,
-    requestOpts?: FilledOrderFilter
+    requestOpts?: FillEventFilter
   ): Promise<any> {
     const result = await this._client.query({
-      variables: { numEntries, where: { ...requestOpts } },
+      variables: {
+        first: numEntries > MAX_PER_PAGE ? MAX_PER_PAGE : numEntries,
+        where: requestOpts
+      },
       query: gql`
-        query filledOrders($numEntries: Int!, $where: FilledOrder_filter) {
-          filledOrders(first: $numEntries, where: $requestOpts) {
+        query filledOrders($first: Int!, $where: FilledOrder_filter) {
+          filledOrders(first: $first, where: $where) {
             id
             maker
             taker
@@ -68,18 +72,18 @@ export class HttpSubgraphClient implements Client {
    * @param requestOpts Options specifying order information to retrieve, page information, and network id.
    */
 
-  public async getCancelledOrdersAsync(
+  public async getCancelEventsAsync(
     numEntries: number,
-    requestOpts?: CancelledOrderFilter
+    requestOpts?: CancelledEventFilter
   ): Promise<any> {
     const result = await this._client.query({
-      variables: { numEntries, where: { ...requestOpts } },
+      variables: {
+        first: numEntries > MAX_PER_PAGE ? MAX_PER_PAGE : numEntries,
+        where: requestOpts
+      },
       query: gql`
-        query cancelledOrders(
-          $numEntries: Int!
-          $where: CancelledOrder_filter
-        ) {
-          cancelledOrders(first: $numEntries, where: $requestOpts) {
+        query cancelledOrders($first: Int!, $where: CancelledOrder_filter) {
+          cancelledOrders(first: $first, where: $where) {
             id
             maker
             feeRecipient
@@ -98,15 +102,14 @@ export class HttpSubgraphClient implements Client {
    * @param numEntries number of query entries.
    * @param userAddress address of the user to look for
    */
-  public async getOrdersByUsersAsync(
-    numEntries: number,
-    userAddress: string
-  ): Promise<any> {
+  public async getEventsByUsersAsync(numEntries: number): Promise<any> {
     const result = await this._client.query({
-      variables: { numEntries, where: { id: userAddress } },
+      variables: {
+        first: numEntries > MAX_PER_PAGE ? MAX_PER_PAGE : numEntries
+      },
       query: gql`
-        query users($numEntries: Int!, $where: User_filter) {
-          users(first: $numEntires, where: $userAddress) {
+        query users($first: Int!) {
+          users(first: $first) {
             id
             filledOrdersMaker {
               id
