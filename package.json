@@ -5,7 +5,9 @@
   "license": "MIT",
   "dependencies": {
     "apollo-boost": "^0.1.28",
+    "bignumber.js": "^8.0.2",
     "cross-fetch": "^3.0.1",
+    "detect-node": "^2.0.4",
     "graphql": "^14.1.1"
   },
   "scripts": {
@@ -15,6 +17,7 @@
   "devDependencies": {
     "@0x/order-utils": "^6.1.0",
     "@0x/tslint-config": "^3.0.0",
+    "@types/detect-node": "^2.0.0",
     "@types/graphql": "^14.0.7",
     "@types/jest": "^24.0.5",
     "@types/node": "^11.9.4",
