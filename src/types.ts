@@ -3,14 +3,11 @@ export interface Client {
     numEntries: number,
     requestOpts?: FilledOrderRequestOpts
   ): Promise<any>;
-  getFilledOrdersAsync(
-    numEntries: number,
-    requestOpts?: FilledOrderRequestOpts
-  ): Promise<any>;
   getCancelledOrdersAsync(
     numEntries: number,
     requestOpts?: CancelledOrderRequestOpts
   ): Promise<any>;
+  getOrdersByUsersAsync(numEntries: number, userAddress: string): Promise<any>;
 }
 
 export interface FilledOrderRequestOpts {

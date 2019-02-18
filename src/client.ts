@@ -102,7 +102,7 @@ export class HttpSubgraphClient implements Client {
    * @param numEntries number of query entries.
    * @param userAddress address of the user to look for
    */
-  public async getOrdersByUsersSAsync(
+  public async getOrdersByUsersAsync(
     numEntries: number,
     userAddress: string
   ): Promise<any> {
