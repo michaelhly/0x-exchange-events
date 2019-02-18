@@ -1,0 +1,9 @@
+import { PageInfoObject } from "./types";
+
+export const paginate = <T>(collection: T[]): PageInfoObject => {
+  const paginatedCollection = {
+    cursor: collection[collection.length - 1]["id"],
+    perPage: collection.length
+  };
+  return paginatedCollection;
+};

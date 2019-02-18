@@ -2,7 +2,7 @@ import { assetDataUtils } from "@0x/order-utils";
 
 import { HttpSubgraphClient } from "./client";
 import { DEFAULT_PER_PAGE } from "./constants";
-import { Client } from "./types";
+import { Client, FillEvents } from "./types";
 
 describe("Tests for HttpSubgraphClient", () => {
   let client: Client = null;
@@ -12,14 +12,20 @@ describe("Tests for HttpSubgraphClient", () => {
 
   it("test getFillEventsAsync, filter by feeRecipient", async () => {
     const expectedFeeRecipient = "0x8124071f810d533ff63de61d0c98db99eeb99d64";
-    const eventLog = await client.getFillEventsAsync(DEFAULT_PER_PAGE, {
-      feeRecipient: expectedFeeRecipient
-    });
+    const eventLog: FillEvents = await client.getFillEventsAsync(
+      DEFAULT_PER_PAGE,
+      {
+        feeRecipient: expectedFeeRecipient
+      }
+    );
     const { filledOrders } = eventLog.data;
     expect(filledOrders.length).toBe(DEFAULT_PER_PAGE);
     filledOrders.forEach(order => {
       expect(order.feeRecipient).toBe(expectedFeeRecipient);
     });
+    const { pageInfo } = eventLog;
+    expect(pageInfo.cursor).toBe(filledOrders[filledOrders.length - 1].id);
+    expect(pageInfo.perPage).toBe(DEFAULT_PER_PAGE);
   });
 
   it("test getFillEventsAsync, filter by assetData", async () => {
@@ -39,6 +45,9 @@ describe("Tests for HttpSubgraphClient", () => {
       expect(order.makerAssetDataV2).toBe(expectedMakerAssetData);
       expect(order.takerAssetDataV2).toBe(expectedTakerAssetData);
     });
+    const { pageInfo } = eventLog;
+    expect(pageInfo.cursor).toBe(filledOrders[filledOrders.length - 1].id);
+    expect(pageInfo.perPage).toBe(DEFAULT_PER_PAGE);
   });
 
   it("test getCancelEventAsync, filter by feeRecipient", async () => {
@@ -51,9 +60,14 @@ describe("Tests for HttpSubgraphClient", () => {
     cancelledOrders.forEach(order => {
       expect(order.feeRecipient).toBe(expectedFeeRecipient);
     });
+    const { pageInfo } = eventLog;
+    expect(pageInfo.cursor).toBe(
+      cancelledOrders[cancelledOrders.length - 1].id
+    );
+    expect(pageInfo.perPage).toBe(DEFAULT_PER_PAGE);
   });
 
-  it("test getFillEventsAsync, filter by assetData", async () => {
+  it("test getCancelEventAsync, filter by assetData", async () => {
     const expectedMakerAssetData = assetDataUtils.encodeERC20AssetData(
       "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
     ); // WETH
@@ -70,5 +84,10 @@ describe("Tests for HttpSubgraphClient", () => {
       expect(order.makerAssetDataV2).toBe(expectedMakerAssetData);
       expect(order.takerAssetDataV2).toBe(expectedTakerAssetData);
     });
+    const { pageInfo } = eventLog;
+    expect(pageInfo.cursor).toBe(
+      cancelledOrders[cancelledOrders.length - 1].id
+    );
+    expect(pageInfo.perPage).toBe(DEFAULT_PER_PAGE);
   });
 });

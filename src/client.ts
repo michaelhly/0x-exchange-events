@@ -8,7 +8,14 @@ import {
 import "cross-fetch/polyfill";
 
 import { MAX_PER_PAGE } from "./constants";
-import { CancelledEventFilter, Client, FillEventFilter } from "./types";
+import { paginate } from "./paginate";
+import {
+  CancelEventFilter,
+  CancelEvents,
+  Client,
+  FillEventFilter,
+  FillEvents
+} from "./types";
 
 const TRAILING_SLASHES_REGEX = /\/+$/;
 
@@ -32,15 +39,15 @@ export class HttpSubgraphClient implements Client {
   }
 
   /**
-   * Retrieve filled orders from the 0x subgraph
-   * @param numEntries number of query entries.
-   * @param requestOpts Options specifying order information to retrieve, page information, and network id.
+   * Retrieve exchange fill events from the 0x subgraph
+   * @param  numEntries number of query entries.
+   * @param  requestOpts options specifying event queries to retrieve.
    */
   public async getFillEventsAsync(
     numEntries: number,
     requestOpts?: FillEventFilter
-  ): Promise<any> {
-    const result = await this._client.query({
+  ): Promise<FillEvents> {
+    const result: FillEvents = await this._client.query({
       variables: {
         first: numEntries > MAX_PER_PAGE ? MAX_PER_PAGE : numEntries,
         where: requestOpts
@@ -63,20 +70,20 @@ export class HttpSubgraphClient implements Client {
         }
       `
     });
+    result.pageInfo = paginate(result.data.filledOrders);
     return result;
   }
 
   /**
-   * Retrieve cancelled orders on exchange from the 0x subgraph
-   * @param numEntries number of query entries.
-   * @param requestOpts Options specifying order information to retrieve, page information, and network id.
+   * Retrieve exchange cancel events from the 0x subgraph
+   * @param  numEntries number of query entries.
+   * @param  requestOpts options specifying event queries to retrieve.
    */
-
   public async getCancelEventsAsync(
     numEntries: number,
-    requestOpts?: CancelledEventFilter
-  ): Promise<any> {
-    const result = await this._client.query({
+    requestOpts?: CancelEventFilter
+  ): Promise<CancelEvents> {
+    const result: CancelEvents = await this._client.query({
       variables: {
         first: numEntries > MAX_PER_PAGE ? MAX_PER_PAGE : numEntries,
         where: requestOpts
@@ -94,13 +101,13 @@ export class HttpSubgraphClient implements Client {
         }
       `
     });
+    result.pageInfo = paginate(result.data.cancelledOrders);
     return result;
   }
 
   /**
-   * Retrieve user orders from the 0x subgraph
+   * Retrieve user events from the 0x subgraph
    * @param numEntries number of query entries.
-   * @param userAddress address of the user to look for
    */
   public async getEventsByUsersAsync(numEntries: number): Promise<any> {
     const result = await this._client.query({
