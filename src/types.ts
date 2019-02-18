@@ -32,12 +32,12 @@ export interface PageInfoObject {
 }
 
 export interface FillEvents
-  extends ApolloQueryResult<{ filledOrders: FillEvent[] }> {
+  extends ApolloQueryResult<{ fillEvents: FillEvent[] }> {
   pageInfo?: PageInfoObject;
 }
 
 export interface CancelEvents
-  extends ApolloQueryResult<{ cancelledOrders: CancelEvent[] }> {
+  extends ApolloQueryResult<{ cancelEvents: CancelEvent[] }> {
   pageInfo?: PageInfoObject;
 }
 
@@ -157,11 +157,13 @@ export interface FillEventFilter {
 export interface Client {
   getFillEventsAsync(
     numEntries: number,
-    requestOpts?: FillEventFilter
+    requestOpts?: FillEventFilter,
+    cursor?: string
   ): Promise<FillEvents>;
   getCancelEventsAsync(
     numEntries: number,
-    requestOpts?: CancelEventFilter
+    requestOpts?: CancelEventFilter,
+    cursor?: string
   ): Promise<CancelEvents>;
   getEventsByUsersAsync(numEntries: number): Promise<any>;
 }

@@ -46,15 +46,25 @@ export class HttpSubgraphClient implements Client {
   public async getFillEventsAsync(
     numEntries: number,
     requestOpts?: FillEventFilter
+    // cursor?: string
   ): Promise<FillEvents> {
     const result: FillEvents = await this._client.query({
       variables: {
         first: numEntries > MAX_PER_PAGE ? MAX_PER_PAGE : numEntries,
+        // after: cursor,
         where: requestOpts
       },
       query: gql`
-        query filledOrders($first: Int!, $where: FilledOrder_filter) {
-          filledOrders(first: $first, where: $where) {
+        query filledOrders(
+          $first: Int!
+          $after: ID
+          $where: FilledOrder_filter
+        ) {
+          fillEvents: filledOrders(
+            first: $first
+            after: $after
+            where: $where
+          ) {
             id
             maker
             taker
@@ -70,7 +80,7 @@ export class HttpSubgraphClient implements Client {
         }
       `
     });
-    result.pageInfo = paginate(result.data.filledOrders);
+    result.pageInfo = paginate(result.data.fillEvents);
     return result;
   }
 
@@ -82,15 +92,25 @@ export class HttpSubgraphClient implements Client {
   public async getCancelEventsAsync(
     numEntries: number,
     requestOpts?: CancelEventFilter
+    // cursor?: string
   ): Promise<CancelEvents> {
     const result: CancelEvents = await this._client.query({
       variables: {
         first: numEntries > MAX_PER_PAGE ? MAX_PER_PAGE : numEntries,
+        // after: cursor,
         where: requestOpts
       },
       query: gql`
-        query cancelledOrders($first: Int!, $where: CancelledOrder_filter) {
-          cancelledOrders(first: $first, where: $where) {
+        query cancelledOrders(
+          $first: Int!
+          $after: ID
+          $where: CancelledOrder_filter
+        ) {
+          cancelEvents: cancelledOrders(
+            first: $first
+            after: $after
+            where: $where
+          ) {
             id
             maker
             feeRecipient
@@ -101,7 +121,7 @@ export class HttpSubgraphClient implements Client {
         }
       `
     });
-    result.pageInfo = paginate(result.data.cancelledOrders);
+    result.pageInfo = paginate(result.data.cancelEvents);
     return result;
   }
 
