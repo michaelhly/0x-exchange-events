@@ -1,13 +1,13 @@
 import { assetDataUtils } from "@0x/order-utils";
 
-import { HttpSubgraphClient } from "./client";
+import { HttpEventClient } from "./client";
 import { DEFAULT_PER_PAGE } from "./constants";
-import { CancelEvents, Client, FillEvents } from "./types";
+import { CancelEvents, EventClient, FillEvents } from "./types";
 
-describe("Tests for HttpSubgraphClient", () => {
-  let client: Client;
+describe("Tests for HttpEventClient", () => {
+  let client: EventClient;
   beforeAll(() => {
-    client = new HttpSubgraphClient();
+    client = new HttpEventClient();
   });
 
   it("test getFillEventsAsync, filter by feeRecipient", async () => {

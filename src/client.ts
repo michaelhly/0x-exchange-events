@@ -11,20 +11,20 @@ import { MAX_PER_PAGE } from "./constants";
 import {
   CancelEventFilter,
   CancelEvents,
-  Client,
+  EventClient,
   FillEventFilter,
   FillEvents
 } from "./types";
 
 const TRAILING_SLASHES_REGEX = /\/+$/;
 
-export class HttpSubgraphClient implements Client {
+export class HttpEventClient implements EventClient {
   private _client: ApolloClient<NormalizedCacheObject>;
 
   /**
-   * Instantiates a new HttpSubgraphClient instance
+   * Instantiates a new HttpEventClient instance
    * @param   url    The HTTP url of the 0x subgraph you would like to interact with
-   * @return  An instance of HttpSubgraphClient
+   * @return  An instance of HttpEventClient
    */
   constructor(
     url: string = "https://api.thegraph.com/subgraphs/name/michaelhly/zero_ex_events"

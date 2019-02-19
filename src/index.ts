@@ -1,9 +1,9 @@
-export { HttpSubgraphClient } from "./client";
+export { HttpEventClient } from "./client";
 export {
   CancelEvent,
   CancelEvents,
   CancelEventFilter,
-  Client,
+  EventClient,
   FillEvent,
   FillEvents,
   FillEventFilter

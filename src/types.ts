@@ -150,7 +150,7 @@ export interface FillEventFilter {
   senderV2_not_contains?: string;
 }
 
-export interface Client {
+export interface EventClient {
   getFillEventsAsync(
     numEntries: number,
     requestOpts?: FillEventFilter,
