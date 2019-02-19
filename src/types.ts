@@ -1,7 +1,7 @@
 import { BigNumber } from "./configured_bignumber";
 import { ApolloQueryResult } from "apollo-boost";
 
-interface FillEvent {
+export interface FillEvent {
   __typename: string;
   feeRecipient: string;
   id: string;
@@ -16,7 +16,7 @@ interface FillEvent {
   takerFeePaid: string;
 }
 
-interface CancelEvent {
+export interface CancelEvent {
   __typename: string;
   feeRecipient: string;
   id: string;
@@ -26,20 +26,11 @@ interface CancelEvent {
   takerAssetDataV2: string;
 }
 
-export interface PageInfoObject {
-  cursor: string;
-  perPage: number;
-}
-
 export interface FillEvents
-  extends ApolloQueryResult<{ fillEvents: FillEvent[] }> {
-  pageInfo?: PageInfoObject;
-}
+  extends ApolloQueryResult<{ fillEvents: FillEvent[] }> {}
 
 export interface CancelEvents
-  extends ApolloQueryResult<{ cancelEvents: CancelEvent[] }> {
-  pageInfo?: PageInfoObject;
-}
+  extends ApolloQueryResult<{ cancelEvents: CancelEvent[] }> {}
 
 export interface CancelEventFilter {
   maker?: string;

@@ -8,7 +8,6 @@ import {
 import "cross-fetch/polyfill";
 
 import { MAX_PER_PAGE } from "./constants";
-import { paginate } from "./paginate";
 import {
   CancelEventFilter,
   CancelEvents,
@@ -80,7 +79,6 @@ export class HttpSubgraphClient implements Client {
         }
       `
     });
-    result.pageInfo = paginate(result.data.fillEvents);
     return result;
   }
 
@@ -121,7 +119,6 @@ export class HttpSubgraphClient implements Client {
         }
       `
     });
-    result.pageInfo = paginate(result.data.cancelEvents);
     return result;
   }
 

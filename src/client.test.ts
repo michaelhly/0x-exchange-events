@@ -25,9 +25,6 @@ describe("Tests for HttpSubgraphClient", () => {
     fillEvents.forEach(order => {
       expect(order.feeRecipient).toBe(expectedFeeRecipient);
     });
-    const { pageInfo } = eventLog;
-    expect(pageInfo.cursor).toBe(fillEvents[fillEvents.length - 1].id);
-    expect(pageInfo.perPage).toBe(DEFAULT_PER_PAGE);
   });
 
   it("test getFillEventsAsync, filter by assetData", async () => {
@@ -47,9 +44,6 @@ describe("Tests for HttpSubgraphClient", () => {
       expect(order.makerAssetDataV2).toBe(expectedMakerAssetData);
       expect(order.takerAssetDataV2).toBe(expectedTakerAssetData);
     });
-    const { pageInfo } = eventLog;
-    expect(pageInfo.cursor).toBe(fillEvents[fillEvents.length - 1].id);
-    expect(pageInfo.perPage).toBe(DEFAULT_PER_PAGE);
   });
 
   /*
@@ -101,9 +95,6 @@ describe("Tests for HttpSubgraphClient", () => {
     cancelEvents.forEach(order => {
       expect(order.feeRecipient).toBe(expectedFeeRecipient);
     });
-    const { pageInfo } = eventLog;
-    expect(pageInfo.cursor).toBe(cancelEvents[cancelEvents.length - 1].id);
-    expect(pageInfo.perPage).toBe(DEFAULT_PER_PAGE);
   });
 
   it("test getCancelEventAsync, filter by assetData", async () => {
@@ -123,8 +114,5 @@ describe("Tests for HttpSubgraphClient", () => {
       expect(order.makerAssetDataV2).toBe(expectedMakerAssetData);
       expect(order.takerAssetDataV2).toBe(expectedTakerAssetData);
     });
-    const { pageInfo } = eventLog;
-    expect(pageInfo.cursor).toBe(cancelEvents[cancelEvents.length - 1].id);
-    expect(pageInfo.perPage).toBe(DEFAULT_PER_PAGE);
   });
 });
