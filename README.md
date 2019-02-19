@@ -128,8 +128,7 @@ Example output:
 
 ## TODO
 
-- Handle ordering and pagination
-- Finish tests
+- Handle ordering
 - Write better docs
 - Provide sandbox example usage
 - A lot of other stuff needs to be done
