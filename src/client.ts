@@ -40,30 +40,27 @@ export class HttpSubgraphClient implements Client {
   /**
    * Retrieve exchange fill events from the 0x subgraph
    * @param  numEntries number of query entries.
+   * @param  numSkip    number of entries to skip.
    * @param  requestOpts options specifying event queries to retrieve.
    */
   public async getFillEventsAsync(
     numEntries: number,
-    requestOpts?: FillEventFilter
-    // cursor?: string
+    requestOpts?: FillEventFilter,
+    numSkip?: number
   ): Promise<FillEvents> {
     const result: FillEvents = await this._client.query({
       variables: {
         first: numEntries > MAX_PER_PAGE ? MAX_PER_PAGE : numEntries,
-        // after: cursor,
+        skip: numSkip,
         where: requestOpts
       },
       query: gql`
         query filledOrders(
           $first: Int!
-          $after: ID
           $where: FilledOrder_filter
+          $skip: Int
         ) {
-          fillEvents: filledOrders(
-            first: $first
-            after: $after
-            where: $where
-          ) {
+          fillEvents: filledOrders(first: $first, skip: $skip, where: $where) {
             id
             maker
             taker
@@ -79,34 +76,36 @@ export class HttpSubgraphClient implements Client {
         }
       `
     });
+    result.totalEntries = result.data.fillEvents.length;
     return result;
   }
 
   /**
    * Retrieve exchange cancel events from the 0x subgraph
    * @param  numEntries number of query entries.
+   * @param  numSkip    number of entries to skip.
    * @param  requestOpts options specifying event queries to retrieve.
    */
   public async getCancelEventsAsync(
     numEntries: number,
-    requestOpts?: CancelEventFilter
-    // cursor?: string
+    requestOpts?: CancelEventFilter,
+    numSkip?: number
   ): Promise<CancelEvents> {
     const result: CancelEvents = await this._client.query({
       variables: {
         first: numEntries > MAX_PER_PAGE ? MAX_PER_PAGE : numEntries,
-        // after: cursor,
-        where: requestOpts
+        where: requestOpts,
+        skip: numSkip
       },
       query: gql`
         query cancelledOrders(
           $first: Int!
-          $after: ID
+          $skip: Int
           $where: CancelledOrder_filter
         ) {
           cancelEvents: cancelledOrders(
             first: $first
-            after: $after
+            skip: $skip
             where: $where
           ) {
             id
@@ -119,6 +118,7 @@ export class HttpSubgraphClient implements Client {
         }
       `
     });
+    result.totalEntries = result.data.cancelEvents.length;
     return result;
   }
 
@@ -126,14 +126,18 @@ export class HttpSubgraphClient implements Client {
    * Retrieve user events from the 0x subgraph
    * @param numEntries number of query entries.
    */
-  public async getEventsByUsersAsync(numEntries: number): Promise<any> {
+  public async getEventsByUsersAsync(
+    numEntries: number,
+    numSkip?: number
+  ): Promise<any> {
     const result = await this._client.query({
       variables: {
-        first: numEntries > MAX_PER_PAGE ? MAX_PER_PAGE : numEntries
+        first: numEntries > MAX_PER_PAGE ? MAX_PER_PAGE : numEntries,
+        skip: numSkip
       },
       query: gql`
-        query users($first: Int!) {
-          users(first: $first) {
+        query users($first: Int!, $skip: Int!) {
+          users(first: $first, skip: $skip) {
             id
             filledOrdersMaker {
               id

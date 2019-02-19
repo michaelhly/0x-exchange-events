@@ -1,5 +1,6 @@
-import { BigNumber } from "./configured_bignumber";
 import { ApolloQueryResult } from "apollo-boost";
+
+import { BigNumber } from "./configured_bignumber";
 
 export interface FillEvent {
   __typename: string;
@@ -27,10 +28,14 @@ export interface CancelEvent {
 }
 
 export interface FillEvents
-  extends ApolloQueryResult<{ fillEvents: FillEvent[] }> {}
+  extends ApolloQueryResult<{ fillEvents: FillEvent[] }> {
+  totalEntries?: number;
+}
 
 export interface CancelEvents
-  extends ApolloQueryResult<{ cancelEvents: CancelEvent[] }> {}
+  extends ApolloQueryResult<{ cancelEvents: CancelEvent[] }> {
+  totalEntries?: number;
+}
 
 export interface CancelEventFilter {
   maker?: string;
@@ -149,12 +154,12 @@ export interface Client {
   getFillEventsAsync(
     numEntries: number,
     requestOpts?: FillEventFilter,
-    cursor?: string
+    numSkip?: number
   ): Promise<FillEvents>;
   getCancelEventsAsync(
     numEntries: number,
     requestOpts?: CancelEventFilter,
-    cursor?: string
+    numSkip?: number
   ): Promise<CancelEvents>;
-  getEventsByUsersAsync(numEntries: number): Promise<any>;
+  getEventsByUsersAsync(numEntries: number, numSkip: number): Promise<any>;
 }
