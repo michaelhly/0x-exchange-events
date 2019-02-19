@@ -2,8 +2,9 @@
   "name": "0x-events",
   "author": "Michael Huang",
   "description": "A library that queries 0x events from a 0x subgraph deployed on graphprotocol",
-  "version": "0.0.2",
-  "main": "src/client.ts",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "license": "MIT",
   "dependencies": {
     "apollo-boost": "^0.1.28",
@@ -13,6 +14,7 @@
     "graphql": "^14.1.1"
   },
   "scripts": {
+    "build": "tsc -b",
     "lint": "tslint --format stylish src/**/*.ts",
     "test": "./node_modules/.bin/jest"
   },
