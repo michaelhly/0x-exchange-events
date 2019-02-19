@@ -1,6 +1,11 @@
 {
   "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
     "lib": ["es2015"],
-    "types": ["@types/jest", "@types/node"]
-  }
+    "declaration": true,
+    "types": ["@types/jest", "@types/node"],
+    "removeComments": true
+  },
+  "include": ["src/**/*"]
 }

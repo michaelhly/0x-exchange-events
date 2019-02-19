@@ -1,6 +1,6 @@
-## 0x Subgraph Extractor
+## 0x Events
 
-This repository provides a library that queries 0x events from a 0x-subgraph deployed on [The Graph](https://thegraph.com/).
+This repository provides a library that queries 0x events from a 0x subgraph deployed on [graphprotocol](https://thegraph.com/).
 
 Unlike the [0x-event-extractor](https://github.com/0xTracker/0x-event-extractor) or extracting event logs via the `getLogsAsync` method of [0x.js](https://github.com/0xProject/0x-monorepo/tree/development/packages/0x.js), this client does not require a server and allows event filtering beyond the indexed event arguments (i.e. `makerAddress`, `feeRecipientAddress`, `orderHash` for the Fill event).
 
@@ -9,7 +9,7 @@ Import this module and easily filter for the exchange event you need.
 ## Install
 
 ```bash
-yarn add https://github.com/michaelhly/0x-subgraph-extractor
+yarn add 0x-events
 ```
 
 ## Usage
@@ -17,7 +17,7 @@ yarn add https://github.com/michaelhly/0x-subgraph-extractor
 You get started by constructing an instance of the HttpSubgraphClient
 
 ```js
-import { HttpSubgraphClient } from "./node_modules/0x-subgraph-extractor/src/client";
+import { HttpSubgraphClient } from "./node_modules/0x-events/src/client";
 const client = new HttpSubgraphClient();
 ```
 
@@ -28,8 +28,8 @@ Get 50 fill events on version 2 of the 0x protocol, filtered by makerAssetData a
 ```js
 const FillEvents = await client.getFillEventsAsync(50, {
   // Filter arguments
-  makerAssetDataV2: "...",
-  takerAssetDataV2: "...",
+  makerAssetDataV2: "0xf47261b0000000000000000000000000e45b7cd82ac0f3f6cfc9ecd165b79d6f87ed2875",
+  takerAssetDataV2: "0xf47261b0000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
   ...
 });
 ```
@@ -73,7 +73,8 @@ Example output:
   },
   "loading": false,
   "networkStatus": 7,
-  "stale": false
+  "stale": false,
+  "totalEntries": 50
 }
 ```
 
@@ -84,8 +85,8 @@ Get 50 cancel events on version 2 of the 0x protocol, filtered by makerAssetData
 ```js
 const CancelEvents = await client.getCancelEventsAsync(50, {
   // Filter arguments
-  makerAssetDataV2: "...",
-  takerAssetDataV2: "...",
+  makerAssetDataV2: "0xf47261b000000000000000000000000022365168c8705e95b2d08876c23a8c13e3ad72e2",
+  takerAssetDataV2: "0xf47261b0000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
   ...
 });
 ```
@@ -119,15 +120,14 @@ Example output:
   },
   "loading": false,
   "networkStatus": 7,
-  "stale": false
+  "stale": false,
+  "totalEntries": 50
 }
 
 ```
 
 ## TODO
 
-- Handle ordering and pagination
-- Finish tests
-- Write better docs
-- Provide sandbox example usage
-- A lot of other stuff needs to be done
+- Handle ordering
+- Support version 1 of the 0x exchange contract
+- Support Rinkeby and Kovan

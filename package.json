@@ -1,6 +1,8 @@
 {
-  "name": "0x-subgraph-extractor",
-  "version": "0.0.1",
+  "name": "0x-events",
+  "author": "Michael Huang",
+  "description": "A library that queries 0x events from a 0x subgraph deployed on graphprotocol",
+  "version": "0.0.2",
   "main": "src/client.ts",
   "license": "MIT",
   "dependencies": {
