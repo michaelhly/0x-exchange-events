@@ -1,5 +1,5 @@
 {
-  "name": "0x-subgraph-extractor",
+  "name": "0x-events",
   "version": "0.0.1",
   "main": "src/client.ts",
   "license": "MIT",

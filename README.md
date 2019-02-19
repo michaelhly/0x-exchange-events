@@ -9,7 +9,7 @@ Import this module and easily filter for the exchange event you need.
 ## Install
 
 ```bash
-yarn add https://github.com/michaelhly/0x-subgraph-extractor
+yarn add https://github.com/michaelhly/0x-events
 ```
 
 ## Usage
@@ -17,7 +17,7 @@ yarn add https://github.com/michaelhly/0x-subgraph-extractor
 You get started by constructing an instance of the HttpSubgraphClient
 
 ```js
-import { HttpSubgraphClient } from "./node_modules/0x-subgraph-extractor/src/client";
+import { HttpSubgraphClient } from "./node_modules/0x-events/src/client";
 const client = new HttpSubgraphClient();
 ```
 
