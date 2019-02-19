@@ -5,7 +5,7 @@ import { DEFAULT_PER_PAGE } from "./constants";
 import { CancelEvents, Client, FillEvents } from "./types";
 
 describe("Tests for HttpSubgraphClient", () => {
-  let client: Client = null;
+  let client: Client;
   beforeAll(() => {
     client = new HttpSubgraphClient();
   });
