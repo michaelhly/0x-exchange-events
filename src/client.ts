@@ -39,9 +39,9 @@ export class HttpEventClient implements EventClient {
 
   /**
    * Retrieve exchange fill events from the 0x subgraph
-   * @param  numEntries number of query entries.
-   * @param  numSkip    number of entries to skip.
-   * @param  requestOpts options specifying event queries to retrieve.
+   * @param  numEntries  number of query entries
+   * @param  numSkip     number of entries to skip
+   * @param  requestOpts options specifying event queries to retrieve
    */
   public async getFillEventsAsync(
     numEntries: number,
@@ -82,9 +82,9 @@ export class HttpEventClient implements EventClient {
 
   /**
    * Retrieve exchange cancel events from the 0x subgraph
-   * @param  numEntries number of query entries.
-   * @param  numSkip    number of entries to skip.
-   * @param  requestOpts options specifying event queries to retrieve.
+   * @param  numEntries  number of query entries
+   * @param  numSkip     number of entries to skip
+   * @param  requestOpts options specifying event queries to retrieve
    */
   public async getCancelEventsAsync(
     numEntries: number,
@@ -124,7 +124,8 @@ export class HttpEventClient implements EventClient {
 
   /**
    * Retrieve user events from the 0x subgraph
-   * @param numEntries number of query entries.
+   * @param numEntries number of query entries
+   * @param numSkip    number of entries to skip
    */
   public async getEventsByUsersAsync(
     numEntries: number,
@@ -136,7 +137,7 @@ export class HttpEventClient implements EventClient {
         skip: numSkip
       },
       query: gql`
-        query users($first: Int!, $skip: Int!) {
+        query users($first: Int!, $skip: Int) {
           users(first: $first, skip: $skip) {
             id
             filledOrdersMaker {
