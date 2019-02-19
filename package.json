@@ -1,8 +1,8 @@
 {
-  "name": "0x-events",
+  "name": "0x-exchange-events",
   "author": "Michael Huang",
-  "description": "A library that queries 0x events from a 0x subgraph deployed on graphprotocol",
-  "version": "0.0.1",
+  "description": "A library that queries 0x exchange events from a 0x subgraph deployed on graphprotocol",
+  "version": "0.0.2",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "license": "MIT",
@@ -17,6 +17,10 @@
     "build": "tsc -b",
     "lint": "tslint --format stylish src/**/*.ts",
     "test": "./node_modules/.bin/jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michaelhly/0x-exchange-events"
   },
   "devDependencies": {
     "@0x/order-utils": "^6.1.0",

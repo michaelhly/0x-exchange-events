@@ -1,6 +1,6 @@
-## 0x Events
+## 0x Exchange Events
 
-This repository provides a library that queries 0x events from a 0x subgraph deployed on [graphprotocol](https://thegraph.com/).
+This repository provides a library that queries 0x exchange events from a 0x subgraph deployed on [graphprotocol](https://thegraph.com/).
 
 Unlike the [0x-event-extractor](https://github.com/0xTracker/0x-event-extractor) or extracting event logs via the `getLogsAsync` method of [0x.js](https://github.com/0xProject/0x-monorepo/tree/development/packages/0x.js), this client does not require a server and allows event filtering beyond the indexed event arguments (i.e. `makerAddress`, `feeRecipientAddress`, `orderHash` for the Fill event).
 
@@ -9,16 +9,16 @@ Import this module and easily filter for the exchange event you need.
 ## Install
 
 ```bash
-yarn add 0x-events
+yarn add 0x-exchange-events
 ```
 
 ## Usage
 
-You get started by constructing an instance of the HttpSubgraphClient
+You get started by constructing an instance of the HttpEventClient
 
 ```js
-import { HttpSubgraphClient } from "./node_modules/0x-events/src/client";
-const client = new HttpSubgraphClient();
+import { HttpEventClient } from "0x-exchange-events";
+const client = new HttpEventClient();
 ```
 
 ### Get Fill Events
@@ -131,3 +131,4 @@ Example output:
 - Handle ordering
 - Support version 1 of the 0x exchange contract
 - Support Rinkeby and Kovan
+- Support event subscription
