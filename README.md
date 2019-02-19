@@ -28,8 +28,8 @@ Get 50 fill events on version 2 of the 0x protocol, filtered by makerAssetData a
 ```js
 const FillEvents = await client.getFillEventsAsync(50, {
   // Filter arguments
-  makerAssetDataV2: "...",
-  takerAssetDataV2: "...",
+  makerAssetDataV2: "0xf47261b0000000000000000000000000e45b7cd82ac0f3f6cfc9ecd165b79d6f87ed2875",
+  takerAssetDataV2: "0xf47261b0000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
   ...
 });
 ```
@@ -73,7 +73,8 @@ Example output:
   },
   "loading": false,
   "networkStatus": 7,
-  "stale": false
+  "stale": false,
+  "totalEntries": 50
 }
 ```
 
@@ -84,8 +85,8 @@ Get 50 cancel events on version 2 of the 0x protocol, filtered by makerAssetData
 ```js
 const CancelEvents = await client.getCancelEventsAsync(50, {
   // Filter arguments
-  makerAssetDataV2: "...",
-  takerAssetDataV2: "...",
+  makerAssetDataV2: "0xf47261b000000000000000000000000022365168c8705e95b2d08876c23a8c13e3ad72e2",
+  takerAssetDataV2: "0xf47261b0000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
   ...
 });
 ```
@@ -119,7 +120,8 @@ Example output:
   },
   "loading": false,
   "networkStatus": 7,
-  "stale": false
+  "stale": false,
+  "totalEntries": 50
 }
 
 ```
